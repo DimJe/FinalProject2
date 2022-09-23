@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FinalProject2</string>
+    <string name="kakaoAppKey">272331d6813fefef5b7248caed0abea9</string>
+    <string name="kakaoAppKey2">kakao272331d6813fefef5b7248caed0abea9</string>
 </resources>

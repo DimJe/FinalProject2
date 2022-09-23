@@ -3,6 +3,7 @@ package org.techtown.finalproject2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.kakao.sdk.user.UserApiClient
 import org.techtown.finalproject2.databinding.ActivityMainBinding
 import org.techtown.finalproject2.databinding.ActivityMakeUserBinding
 import org.techtown.finalproject2.makeUser.MakeUser1
@@ -15,14 +16,17 @@ class MakeUser : AppCompatActivity() {
         ActivityMakeUserBinding.inflate(layoutInflater)
     }
     var flag = 0
-    private val transaction = supportFragmentManager.beginTransaction()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.container, MakeUser1())
         transaction.addToBackStack(null)
         transaction.commit()
+
+        UserApiClient.instance.me { user, error ->
+            binding.text.text = user?.kakaoAccount?.email
+        }
 
         binding.next.setOnClickListener {
 
@@ -41,7 +45,7 @@ class MakeUser : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         when(flag){
             0 -> {
-                transaction.add(R.id.container, MakeUser2())
+                transaction.replace(R.id.container, MakeUser2())
                 flag = 1
             }
             1 -> {
