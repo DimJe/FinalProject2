@@ -41,13 +41,12 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "카카오계정으로 로그인 실패 : ${error}", Toast.LENGTH_SHORT).show()
                     //setLogin(false)
                 } else if (token != null) {
-                    //TODO: 최종적으로 카카오로그인 및 유저정보 가져온 결과
                     UserApiClient.instance.me { user, error ->
                         Toast.makeText(this, "카카오계정으로 로그인 성공 \n\n " +
                                 "token: ${token.accessToken} \n\n " +
                                 "me: ${user}",Toast.LENGTH_SHORT).show()
                     }
-                    Intent(this,MakeUser::class.java).apply {
+                    Intent(this,MainSystem::class.java).apply {
                         startActivity(this)
                     }
                 }
@@ -69,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                         UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                     } else if (token != null) {
                         Toast.makeText(this, "카카오톡으로 로그인 성공 ${token.accessToken}",Toast.LENGTH_SHORT).show()
-                        Intent(this,MakeUser::class.java).apply {
+                        Intent(this,MainSystem::class.java).apply {
                             startActivity(this)
                         }
                     }

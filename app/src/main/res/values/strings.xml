@@ -2,4 +2,8 @@
     <string name="app_name">FinalProject2</string>
     <string name="kakaoAppKey">272331d6813fefef5b7248caed0abea9</string>
     <string name="kakaoAppKey2">kakao272331d6813fefef5b7248caed0abea9</string>
+    <string name="title_activity_main_system">MainSystem</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
