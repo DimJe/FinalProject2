@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val recycler: RecyclerView = binding.recyler
+        val recycler: RecyclerView = binding.recycler
         homeViewModel.data.observe(viewLifecycleOwner) {
             val adapter = ListAdapter(it)
             recycler.adapter = adapter
