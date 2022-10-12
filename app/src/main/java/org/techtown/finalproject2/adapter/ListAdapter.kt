@@ -24,8 +24,8 @@ class ListAdapter(private val data : ArrayList<PostData>) : RecyclerView.Adapter
 
         fun bind(item : PostData){
             binding.image.setImageResource(item.img)
-            binding.name.text = item.name
-            binding.info.text = item.info
+            binding.name.text = item.title
+            binding.info.text = item.content
             binding.tag1.text = item.tag1
             binding.tag2.text = item.tag2
             binding.tag3.text = item.tag3
