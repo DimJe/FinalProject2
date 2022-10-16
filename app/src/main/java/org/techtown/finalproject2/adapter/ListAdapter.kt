@@ -1,6 +1,7 @@
 package org.techtown.finalproject2.adapter
 
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,13 +23,16 @@ class ListAdapter(private val data : ArrayList<PostData>) : RecyclerView.Adapter
 
     inner class ViewHolder(private val binding: RecyclerViewItemBinding) : RecyclerView.ViewHolder(binding.root){
 
+        @SuppressLint("SetTextI18n")
         fun bind(item : PostData){
             binding.image.setImageResource(item.img)
-            binding.name.text = item.title
-            binding.info.text = item.content
-            binding.tag1.text = item.tag1
-            binding.tag2.text = item.tag2
-            binding.tag3.text = item.tag3
+            binding.title.text = item.title
+            binding.where.text = "장소 : ${item.where}"
+            binding.time.text = when(item.type){
+                "b3:3" -> "경기 및 시간 : ${item.date}시(농구 3 : 3)"
+                "b5:5" -> "경기 및 시간 : ${item.date}시(농구 5 : 5)"
+                else -> "잘못 된 입력"
+            }
 
         }
     }
