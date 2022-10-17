@@ -1,5 +1,7 @@
 package org.techtown.finalproject2.API
 
+import java.io.Serializable
+
 data class User(val user_NO_PK : Int,
                 val user_NM : String,
                 val user_NCKNM : String,
@@ -13,7 +15,4 @@ data class User(val user_NO_PK : Int,
                 val user_MNR_SCR : Float,
                 val user_SKL_SCR : Float,
                 val user_EML_ADDR : String
-) {
-
-
-}
+) : Serializable
