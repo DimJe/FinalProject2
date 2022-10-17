@@ -3,7 +3,7 @@ package org.techtown.finalproject2.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.techtown.finalproject2.PostData
+import org.techtown.finalproject2.API.PostData
 import org.techtown.finalproject2.R
 
 class HomeViewModel : ViewModel() {

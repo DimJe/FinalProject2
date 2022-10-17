@@ -5,10 +5,19 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.techtown.finalproject2.PostData
+import org.techtown.finalproject2.API.PostData
 import org.techtown.finalproject2.databinding.RecyclerViewItemBinding
 
 class ListAdapter(private val data : ArrayList<PostData>) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+
+    interface OnItemClickListener{
+        fun onItemClick(b:RecyclerViewItemBinding, post: PostData, positon : Int)
+    }
+
+    private var listener : OnItemClickListener? = null
+    fun setOnItemClickListener(listener : OnItemClickListener) {
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = RecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -32,6 +41,13 @@ class ListAdapter(private val data : ArrayList<PostData>) : RecyclerView.Adapter
                 "b3:3" -> "경기 및 시간 : ${item.date}시(농구 3 : 3)"
                 "b5:5" -> "경기 및 시간 : ${item.date}시(농구 5 : 5)"
                 else -> "잘못 된 입력"
+            }
+            val pos = adapterPosition
+            if(pos!= RecyclerView.NO_POSITION)
+            {
+                itemView.setOnClickListener {
+                    listener?.onItemClick(binding,item,pos)
+                }
             }
 
         }

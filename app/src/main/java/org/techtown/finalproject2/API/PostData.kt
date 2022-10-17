@@ -1,4 +1,6 @@
-package org.techtown.finalproject2
+package org.techtown.finalproject2.API
+
+import java.io.Serializable
 
 data class PostData(
     val img : Int,
@@ -7,4 +9,4 @@ data class PostData(
     val type : String,
     val date : String,
     val where : String
-)
+) : Serializable
