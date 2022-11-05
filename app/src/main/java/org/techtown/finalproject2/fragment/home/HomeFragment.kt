@@ -1,4 +1,4 @@
-package org.techtown.finalproject2.ui.home
+package org.techtown.finalproject2.fragment.home
 
 import android.content.Context
 import android.content.Intent
@@ -8,11 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.techtown.finalproject2.API.PostData
+import org.techtown.finalproject2.AddPost
 import org.techtown.finalproject2.PostDetail
 import org.techtown.finalproject2.R
 import org.techtown.finalproject2.adapter.ListAdapter
@@ -26,21 +28,22 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var adapter : ListAdapter
+    private val searchFlag = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
 
+        val homeViewModel : HomeViewModel by viewModel()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val recycler: RecyclerView = binding.recycler
         homeViewModel.data.observe(viewLifecycleOwner) {
-            val adapter = ListAdapter(it)
+            adapter = ListAdapter(it)
             adapter.setOnItemClickListener(object : ListAdapter.OnItemClickListener{
                 override fun onItemClick(b: RecyclerViewItemBinding, post: PostData, positon: Int) {
                     Log.d("태그", "onItemClick: call")
@@ -56,15 +59,29 @@ class HomeFragment : Fragment() {
         binding.bar.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.add -> {
-                    Log.d("태그", "add 클릭")//Post add
+                    Log.d("태그", "add 클릭")
+                    Intent(context,AddPost::class.java).run { startActivity(this) }
 
                 }
                 R.id.filter -> {
                     Log.d("태그", "필터 클릭")
+                    binding.linear.visibility = if(binding.linear.visibility==View.GONE) View.VISIBLE else View.GONE
                 }
             }
             return@setOnMenuItemClickListener true
         }
+
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextChange(p0: String): Boolean {
+                adapter.filter.filter(p0)
+                return false
+            }
+
+            override fun onQueryTextSubmit(p0: String): Boolean {
+                return false
+            }
+        })
+
         return root
     }
 

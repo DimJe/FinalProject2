@@ -16,4 +16,7 @@ interface ApiInterface {
         @Path("user_EML_ADDR") addr : String
     ) : Call<User>
 
+    @GET("/board")
+    fun getPost() : Call<ArrayList<PostData>>
+
 }

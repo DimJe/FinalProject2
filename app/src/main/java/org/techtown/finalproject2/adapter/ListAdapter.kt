@@ -2,21 +2,31 @@ package org.techtown.finalproject2.adapter
 
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import org.techtown.finalproject2.API.PostData
+import org.techtown.finalproject2.R
 import org.techtown.finalproject2.databinding.RecyclerViewItemBinding
 
-class ListAdapter(private val data : ArrayList<PostData>) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+class ListAdapter(var data : ArrayList<PostData>) : RecyclerView.Adapter<ListAdapter.ViewHolder>(),Filterable {
 
     interface OnItemClickListener{
         fun onItemClick(b:RecyclerViewItemBinding, post: PostData, positon : Int)
     }
 
     private var listener : OnItemClickListener? = null
+    var filteredData = ArrayList<PostData>()
+    var itemFilter = ItemFilter()
     fun setOnItemClickListener(listener : OnItemClickListener) {
         this.listener = listener
+    }
+
+    init {
+        filteredData.addAll(data)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,23 +35,23 @@ class ListAdapter(private val data : ArrayList<PostData>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(filteredData[position])
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = filteredData.size
+
+    override fun getFilter(): Filter {
+        return itemFilter
+    }
 
     inner class ViewHolder(private val binding: RecyclerViewItemBinding) : RecyclerView.ViewHolder(binding.root){
 
         @SuppressLint("SetTextI18n")
         fun bind(item : PostData){
-            binding.image.setImageResource(item.img)
-            binding.title.text = item.title
-            binding.where.text = "장소 : ${item.where}"
-            binding.time.text = when(item.type){
-                "b3:3" -> "경기 및 시간 : ${item.date}시(농구 3 : 3)"
-                "b5:5" -> "경기 및 시간 : ${item.date}시(농구 5 : 5)"
-                else -> "잘못 된 입력"
-            }
+            binding.image.setImageResource(R.drawable.ic_launcher_foreground)
+            binding.title.text = item.pst_NM
+            binding.where.text = if(item.stadm_NO_FK==1) "흥업 체육관" else "무실 체육관"
+            binding.time.text = item.match_DT
             val pos = adapterPosition
             if(pos!= RecyclerView.NO_POSITION)
             {
@@ -50,6 +60,41 @@ class ListAdapter(private val data : ArrayList<PostData>) : RecyclerView.Adapter
                 }
             }
 
+        }
+    }
+    inner class ItemFilter : Filter(){
+
+        override fun performFiltering(p0: CharSequence?): FilterResults {
+            val filterString = p0.toString()
+            val results = FilterResults()
+
+            val filteredList = ArrayList<PostData>()
+            if(filterString.isEmpty() || filterString.isBlank()){
+
+                results.values = data
+                results.count = data.size
+
+                return results
+            }
+            else{
+                for(post in data){
+                    if(post.pst_NM.trim().contains(filterString)){
+                        filteredList.add(post)
+                    }
+                }
+                results.values = filteredList
+                results.count = filteredList.size
+
+                return results
+            }
+        }
+
+        @SuppressLint("NotifyDataSetChanged")
+        override fun publishResults(p0: CharSequence?, p1: FilterResults) {
+
+            filteredData.clear()
+            filteredData.addAll(p1.values as ArrayList<PostData>)
+            notifyDataSetChanged()
         }
     }
 }

@@ -5,7 +5,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,6 +18,9 @@
         android:theme="@style/Theme.FinalProject2"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".AddPost"
+            android:exported="false" />
         <activity
             android:name=".PostDetail"
             android:exported="false" />

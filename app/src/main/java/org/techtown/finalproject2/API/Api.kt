@@ -1,24 +1,35 @@
 package org.techtown.finalproject2.API
 
 import android.util.Log
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import okhttp3.ResponseBody
+import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Type
 import java.util.ArrayList
 
 class Api {
-    private val Owner : User? = null
-    private val BASE_URL = "http://0.0.0.0"
+    var user : User? = null
+    private val BASE_URL = "http://3.38.149.150"
+    private val stadmList = ArrayList<Stadm>()
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .addConverterFactory(nullOnEmptyConverterFactory)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
     private val instance by lazy {
         retrofit.create(ApiInterface::class.java)
+    }
+    private val nullOnEmptyConverterFactory = object : Converter.Factory() {
+        fun converterFactory() = this
+        override fun responseBodyConverter(
+            type: Type,
+            annotations: Array<out Annotation>,
+            retrofit: Retrofit
+        ): Converter<ResponseBody, *>? {
+            return super.responseBodyConverter(type, annotations, retrofit)
+        }
     }
     fun getUsers(){
         val result = instance.getUsers()
@@ -47,6 +58,7 @@ class Api {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if(response.isSuccessful){
                     Log.d("태그", "onResponse:  ${response.body()}")
+                    user = response.body()
                     flag = response.body() != null
                 }
             }
@@ -57,5 +69,23 @@ class Api {
 
         })
         return flag
+    }
+    fun getPost(){
+        val result = instance.getPost()
+        result.enqueue(object : Callback<ArrayList<PostData>>{
+            override fun onResponse(
+                call: Call<ArrayList<PostData>>,
+                response: Response<ArrayList<PostData>>
+            ) {
+                response.body()?.forEach {
+                    Log.d("태그", "onResponse:$it ")
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<PostData>>, t: Throwable) {
+                Log.d("태그", "onFailure: ${t.localizedMessage}")
+            }
+
+        })
     }
 }

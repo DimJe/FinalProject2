@@ -34,6 +34,7 @@
         android:layout_weight="2.9"
         />
     <Button
+        android:id="@+id/chatStart"
         android:text="대화 시작하기"
         android:layout_width="match_parent"
         android:layout_height="0dp"

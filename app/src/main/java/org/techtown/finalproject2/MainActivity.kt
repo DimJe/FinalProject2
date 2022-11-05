@@ -11,6 +11,11 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
+import org.koin.java.KoinJavaComponent.inject
+import org.techtown.finalproject2.API.Api
+import org.techtown.finalproject2.API.User
 import org.techtown.finalproject2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,10 +23,10 @@ class MainActivity : AppCompatActivity() {
     private val binding : ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+    private val api : Api by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         val keyHash = Utility.getKeyHash(this)
         Log.e("Key", "keyHash: ${keyHash}")
 
@@ -29,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         KakaoSdk.init(this, this.getString(R.string.kakaoAppKey))
 
         initView()
+        api.getUsers()
+        api.getUser("mark759@naver.com")
+        api.getPost()
 
     }
 
@@ -46,8 +54,23 @@ class MainActivity : AppCompatActivity() {
                                 "token: ${token.accessToken} \n\n " +
                                 "me: ${user}",Toast.LENGTH_SHORT).show()
                     }
-                    Intent(this,MainSystem::class.java).apply {
-                        startActivity(this)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val deferred : Deferred<User> = async {
+                            delay(3000L)
+                            User(
+                                1, "km", "kk", "000",
+                                "a", 12, 150F, 80F, "dd",
+                                22, 2F, 2F, "aaa@aaa.a"
+                            )
+                        }
+                        val temp = deferred.await()
+                        Log.d("태그", "checkUser: $temp")
+                        if(temp != null){
+                            Log.d("태그", "checkUser: $temp")
+                            Intent(this@MainActivity,MainSystem::class.java).run {
+                                startActivity(this)
+                            }
+                        }
                     }
                 }
             }
@@ -68,8 +91,22 @@ class MainActivity : AppCompatActivity() {
                         UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                     } else if (token != null) {
                         Toast.makeText(this, "카카오톡으로 로그인 성공 ${token.accessToken}",Toast.LENGTH_SHORT).show()
-                        Intent(this,MainSystem::class.java).apply {
-                            startActivity(this)
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val deferred : Deferred<User> = async {
+                                delay(3000L)
+                                User(
+                                    1, "km", "kk", "000",
+                                    "a", 12, 150F, 80F, "dd",
+                                    22, 2F, 2F, "aaa@aaa.a"
+                                )
+                            }
+                            val temp = deferred.await()
+                            if(temp != null){
+                                Log.d("태그", "checkUser: $temp")
+                                Intent(this@MainActivity,MainSystem::class.java).run {
+                                    startActivity(this)
+                                }
+                            }
                         }
                     }
                 }
@@ -77,7 +114,5 @@ class MainActivity : AppCompatActivity() {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
-
-
     }
 }
