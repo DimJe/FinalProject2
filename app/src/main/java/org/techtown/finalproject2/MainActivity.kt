@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
         KakaoSdk.init(this, this.getString(R.string.kakaoAppKey))
 
         initView()
-        api.getUsers()
-        api.getUser("mark759@naver.com")
-        api.getPost()
+//        api.getUsers()
+//        api.getUser("mark759@naver.com")
+//        api.getPost()
 
     }
 

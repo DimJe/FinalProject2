@@ -41,8 +41,8 @@ class PostDetail : AppCompatActivity() {
                         Log.d("태그", "onDataChange:  no")
                         db.child("RoomUser").child(chatRoomKey).push().setValue(post.pstuser_NO_FK)
                         db.child("RoomUser").child(chatRoomKey).push().setValue(2)
-                        db.child("UserRoom").child(post.pstuser_NO_FK.toString()).child(chatRoomKey).setValue(ChatRoomData("",chatRoomKey,"김중원"))
-                        db.child("UserRoom").child("2").child(chatRoomKey).setValue(ChatRoomData("",chatRoomKey,"최민규"))
+                        db.child("UserRoom").child(post.pstuser_NO_FK.toString()).child(chatRoomKey).setValue(ChatRoomData("",chatRoomKey,"김중원","","1","2"))
+                        db.child("UserRoom").child("2").child(chatRoomKey).setValue(ChatRoomData("",chatRoomKey,"최민규","","2","1"))
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
@@ -50,7 +50,10 @@ class PostDetail : AppCompatActivity() {
                 }
             })
             Log.d("태그", "onDataChange:  이게 먼저 나오면 안됨")
-            Intent(this,ChatActivity::class.java).run {
+            Intent(this,ChatActivity::class.java).apply {
+                putExtra("Me",api.user?.user_NO_PK)
+                putExtra("Other",post.pstuser_NO_FK)
+                putExtra("Key",chatRoomKey)
                 startActivity(this)
             }
         }
