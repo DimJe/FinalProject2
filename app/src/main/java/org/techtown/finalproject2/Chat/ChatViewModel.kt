@@ -33,7 +33,7 @@ class ChatViewModel : ViewModel() {
         db.child("Message").child(key).limitToLast(1).addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val msg = snapshot.getValue(ChatData::class.java)
-                if(temp.last().msg != msg!!.msg) newMsg.postValue(snapshot.getValue(ChatData::class.java))
+                if(temp.isEmpty() || temp.last().timeStamp != msg!!.timeStamp) newMsg.postValue(snapshot.getValue(ChatData::class.java))
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onChildRemoved(snapshot: DataSnapshot) {}

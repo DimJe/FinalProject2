@@ -17,7 +17,7 @@ class DashboardViewModel(val api : Api) : ViewModel() {
     val data = MutableLiveData<ArrayList<ChatRoomData>>()
     private val temp = ArrayList<ChatRoomData>()
     fun getChatRoom(){
-        db.child("UserRoom").child("2").addListenerForSingleValueEvent(object : ValueEventListener{
+        db.child("UserRoom").child(api.user?.user_NO_PK.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 Log.d("태그", "getRoom called ")

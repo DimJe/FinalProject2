@@ -30,20 +30,23 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter : ListAdapter
     private val searchFlag = false
-
+    private val homeViewModel : HomeViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        val homeViewModel : HomeViewModel by viewModel()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        homeViewModel.api.getStadium()
+        homeViewModel.api.getPost()
         val recycler: RecyclerView = binding.recycler
-        homeViewModel.data.observe(viewLifecycleOwner) {
+        homeViewModel.api.postDataList.observe(viewLifecycleOwner) {
+            Log.d("태그", "post: observed")
             adapter = ListAdapter(it)
+            adapter.setStadmList(homeViewModel.api.stadmList)
             adapter.setOnItemClickListener(object : ListAdapter.OnItemClickListener{
                 override fun onItemClick(b: RecyclerViewItemBinding, post: PostData, positon: Int) {
                     Log.d("태그", "onItemClick: call")
@@ -54,8 +57,37 @@ class HomeFragment : Fragment() {
             })
             recycler.adapter = adapter
             recycler.layoutManager = LinearLayoutManager(context)
-            recycler.addItemDecoration(VerticalItemDecorator(30))
+            if(recycler.itemDecorationCount==0) recycler.addItemDecoration(VerticalItemDecorator(30))
+
+
         }
+        initView()
+
+        return root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    class VerticalItemDecorator(private val divHeight : Int):RecyclerView.ItemDecoration(){
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            super.getItemOffsets(outRect, view, parent, state)
+            outRect.top = divHeight
+            outRect.bottom = divHeight
+        }
+    }
+    private fun initView(){
         binding.bar.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.add -> {
@@ -81,29 +113,9 @@ class HomeFragment : Fragment() {
                 return false
             }
         })
-
-        return root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    inner class VerticalItemDecorator(private val divHeight : Int):RecyclerView.ItemDecoration(){
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            super.getItemOffsets(outRect, view, parent, state)
-            outRect.top = divHeight
-            outRect.bottom = divHeight
+        binding.refresh.setOnRefreshListener {
+            binding.refresh.isRefreshing = false
+            homeViewModel.api.getPost()
         }
     }
 }

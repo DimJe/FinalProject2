@@ -7,5 +7,6 @@ data class Stadm(
     val stadm_NM : String,
     val stadm_ADDR : String,
     val stadm_TELNO : String,
-    val stadm_CODNT : String
+    val stadm_LAT : Float, //위도
+    val stadm_LONG : Float // 경도
 ) : Serializable

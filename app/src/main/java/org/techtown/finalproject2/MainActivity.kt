@@ -13,7 +13,6 @@ import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
-import org.koin.java.KoinJavaComponent.inject
 import org.techtown.finalproject2.API.Api
 import org.techtown.finalproject2.API.User
 import org.techtown.finalproject2.databinding.ActivityMainBinding
@@ -34,9 +33,6 @@ class MainActivity : AppCompatActivity() {
         KakaoSdk.init(this, this.getString(R.string.kakaoAppKey))
 
         initView()
-//        api.getUsers()
-//        api.getUser("mark759@naver.com")
-//        api.getPost()
 
     }
 
@@ -49,28 +45,25 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "카카오계정으로 로그인 실패 : ${error}", Toast.LENGTH_SHORT).show()
                     //setLogin(false)
                 } else if (token != null) {
-                    UserApiClient.instance.me { user, error ->
-                        Toast.makeText(this, "카카오계정으로 로그인 성공 \n\n " +
-                                "token: ${token.accessToken} \n\n " +
-                                "me: ${user}",Toast.LENGTH_SHORT).show()
-                    }
-                    CoroutineScope(Dispatchers.IO).launch {
-                        val deferred : Deferred<User> = async {
-                            delay(3000L)
-                            User(
-                                1, "km", "kk", "000",
-                                "a", 12, 150F, 80F, "dd",
-                                22, 2F, 2F, "aaa@aaa.a"
-                            )
-                        }
-                        val temp = deferred.await()
-                        Log.d("태그", "checkUser: $temp")
-                        if(temp != null){
-                            Log.d("태그", "checkUser: $temp")
-                            Intent(this@MainActivity,MainSystem::class.java).run {
-                                startActivity(this)
+                    UserApiClient.instance.me { user, _ ->
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val deferred : Deferred<Boolean> = async {
+                                api.getUser(user?.kakaoAccount?.email!!)
+                            }
+                            val temp = deferred.await()
+                            if(temp){
+                                Log.d("태그", "checkUser: true")
+                                Intent(this@MainActivity,MainSystem::class.java).run {
+                                    startActivity(this)
+                                }
+                            }else{
+                                Intent(this@MainActivity,RegisterUser::class.java).run{
+                                    startActivity(this)
+                                }
                             }
                         }
+
                     }
                 }
             }
@@ -90,23 +83,26 @@ class MainActivity : AppCompatActivity() {
                         // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                         UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                     } else if (token != null) {
-                        Toast.makeText(this, "카카오톡으로 로그인 성공 ${token.accessToken}",Toast.LENGTH_SHORT).show()
-                        CoroutineScope(Dispatchers.IO).launch {
-                            val deferred : Deferred<User> = async {
-                                delay(3000L)
-                                User(
-                                    1, "km", "kk", "000",
-                                    "a", 12, 150F, 80F, "dd",
-                                    22, 2F, 2F, "aaa@aaa.a"
-                                )
-                            }
-                            val temp = deferred.await()
-                            if(temp != null){
-                                Log.d("태그", "checkUser: $temp")
-                                Intent(this@MainActivity,MainSystem::class.java).run {
-                                    startActivity(this)
+                        UserApiClient.instance.me { user, _ ->
+
+                            CoroutineScope(Dispatchers.IO).launch {
+//                                val deferred : Deferred<Boolean> = async {
+//                                    api.getUser(user?.kakaoAccount?.email!!)
+//                                }
+//                                val temp = deferred.await()
+                                if(api.getUser(user?.kakaoAccount?.email!!)){
+                                    Log.d("태그", "checkUser: true")
+
+                                    Intent(this@MainActivity,MainSystem::class.java).run {
+                                        startActivity(this)
+                                    }
+                                }else{
+                                    Intent(this@MainActivity,RegisterUser::class.java).run{
+                                        startActivity(this)
+                                    }
                                 }
                             }
+
                         }
                     }
                 }

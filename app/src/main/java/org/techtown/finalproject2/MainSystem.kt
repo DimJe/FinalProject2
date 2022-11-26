@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.database.FirebaseDatabase
+import org.koin.android.ext.android.inject
+import org.techtown.finalproject2.API.Api
 import org.techtown.finalproject2.databinding.ActivityMainSystemBinding
 
 class MainSystem : AppCompatActivity() {
@@ -14,23 +17,15 @@ class MainSystem : AppCompatActivity() {
     private val binding: ActivityMainSystemBinding by lazy {
         ActivityMainSystemBinding.inflate(layoutInflater)
     }
-
+    private val api : Api by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         Log.d("태그", "onCreate: called")
         val navView: BottomNavigationView = binding.navView
 
-//        val navController = findNavController(R.id.nav_host_fragment_activity_main_system)
-//        // Passing each menu ID as a set of Ids because each
-//        // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-//            )
-//        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
+        val db = FirebaseDatabase.getInstance().reference
+        db.child("User").child(api.user?.user_NO_PK.toString()).setValue(api.user?.user_NCKNM)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main_system) as NavHostFragment
@@ -39,4 +34,5 @@ class MainSystem : AppCompatActivity() {
         navView
             .setupWithNavController(navController)
     }
+
 }

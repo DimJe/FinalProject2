@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.techtown.finalproject2.Chat.ChatData
 import org.techtown.finalproject2.R
 import org.techtown.finalproject2.databinding.RecyclerChatItemBinding
+import java.text.SimpleDateFormat
 
 class ChatAdapter(val chatDataList:ArrayList<ChatData>, val Other : String,val Me : String) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,6 +37,9 @@ class ChatAdapter(val chatDataList:ArrayList<ChatData>, val Other : String,val M
 
     inner class ViewHolder(private val binding: RecyclerChatItemBinding) : RecyclerView.ViewHolder(binding.root){
 
+        @SuppressLint("SimpleDateFormat")
+        val sdf = SimpleDateFormat("hh:mm")
+
         @SuppressLint("SetTextI18n")
         fun bind(item : ChatData){
             when (item.user) {
@@ -44,14 +48,14 @@ class ChatAdapter(val chatDataList:ArrayList<ChatData>, val Other : String,val M
                     binding.linear.setHorizontalGravity(Gravity.END)
                     binding.chatMsg.text = item.msg
                     binding.chatMsg.setBackgroundResource(R.drawable.chat_bubble_me)
-                    binding.chatTime.text = item.timeStamp
+                    binding.chatTime.text = sdf.format(item.timeStamp)
 
                 }
                 else -> {
                     binding.linear.setHorizontalGravity(Gravity.START)
                     binding.chatMsg.text = item.msg
                     binding.chatMsg.setBackgroundResource(R.drawable.chat_bubble_you)
-                    binding.chatTime.text = item.timeStamp
+                    binding.chatTime.text = sdf.format(item.timeStamp)
                 }
             }
         }

@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.android.ext.android.inject
+import org.techtown.finalproject2.API.Api
 import org.techtown.finalproject2.API.PostData
+import org.techtown.finalproject2.API.Stadm
 import org.techtown.finalproject2.R
 import org.techtown.finalproject2.databinding.RecyclerViewItemBinding
 
@@ -17,10 +20,11 @@ class ListAdapter(var data : ArrayList<PostData>) : RecyclerView.Adapter<ListAda
     interface OnItemClickListener{
         fun onItemClick(b:RecyclerViewItemBinding, post: PostData, positon : Int)
     }
-
     private var listener : OnItemClickListener? = null
     var filteredData = ArrayList<PostData>()
     var itemFilter = ItemFilter()
+    var stadmData = ArrayList<Stadm>()
+
     fun setOnItemClickListener(listener : OnItemClickListener) {
         this.listener = listener
     }
@@ -43,6 +47,9 @@ class ListAdapter(var data : ArrayList<PostData>) : RecyclerView.Adapter<ListAda
     override fun getFilter(): Filter {
         return itemFilter
     }
+    fun setStadmList(Stadium : ArrayList<Stadm>){
+        stadmData = Stadium
+    }
 
     inner class ViewHolder(private val binding: RecyclerViewItemBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -50,7 +57,7 @@ class ListAdapter(var data : ArrayList<PostData>) : RecyclerView.Adapter<ListAda
         fun bind(item : PostData){
             binding.image.setImageResource(R.drawable.ic_launcher_foreground)
             binding.title.text = item.pst_NM
-            binding.where.text = if(item.stadm_NO_FK==1) "흥업 체육관" else "무실 체육관"
+            binding.where.text = stadmData[item.stadm_NO_FK-1].stadm_NM
             binding.time.text = item.match_DT
             val pos = adapterPosition
             if(pos!= RecyclerView.NO_POSITION)

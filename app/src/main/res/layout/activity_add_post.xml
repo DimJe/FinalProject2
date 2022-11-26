@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10sp"
+    android:padding="20dp"
     tools:context=".AddPost">
 
     <ScrollView
@@ -79,7 +79,7 @@
                     android:text="농구 5 : 5" />
 
                 <RadioButton
-                    android:id="@+id/f"
+                    android:id="@+id/football"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="축구" />

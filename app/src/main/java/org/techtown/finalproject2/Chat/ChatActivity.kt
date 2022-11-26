@@ -52,7 +52,8 @@ class ChatActivity : AppCompatActivity() {
 
         binding.submit.setOnClickListener {
             if(binding.editMessage.text.isNotEmpty()){
-                chatViewModel.submitMsg(Key, ChatData(meNum,binding.editMessage.text.toString(),"timeStamp"))
+                chatViewModel.submitMsg(Key, ChatData(meNum,binding.editMessage.text.toString(),System.currentTimeMillis()))
+                binding.editMessage.text.clear()
             }
         }
 
