@@ -31,7 +31,7 @@ class PostDetail : AppCompatActivity() {
         val post = intent.getSerializableExtra("post") as PostData
         binding.title.text = post.pst_NM
         binding.content.text = post.pst_CN
-        binding.where.text = post.stadm_NO_FK.toString()
+        binding.where.text = api.stadmList[post.stadm_NO_FK-1].stadm_NM
         binding.time.text = post.match_DT
 
         db.child("User").child(post.pstuser_NO_FK.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
@@ -47,6 +47,7 @@ class PostDetail : AppCompatActivity() {
 
             if(post.pstuser_NO_FK == api.user?.user_NO_PK){
                 Toast.makeText(this, "본인의 게시물입니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
             //대화방 개설
@@ -70,6 +71,7 @@ class PostDetail : AppCompatActivity() {
                 putExtra("Me",api.user?.user_NO_PK)
                 putExtra("Other",post.pstuser_NO_FK)
                 putExtra("Key",chatRoomKey)
+                putExtra("Name",postUserName)
                 startActivity(this)
             }
         }

@@ -29,6 +29,8 @@ class ChatActivity : AppCompatActivity() {
         otherName = intent.getStringExtra("Name").toString()
         Key = intent.getStringExtra("Key").toString()
 
+        Log.d("태그", "onCreate: ${meNum},${otherNum},${otherName}")
+
         binding.chatName.text = otherName
 
         chatViewModel.msgList.observe(this){
@@ -52,8 +54,11 @@ class ChatActivity : AppCompatActivity() {
 
         binding.submit.setOnClickListener {
             if(binding.editMessage.text.isNotEmpty()){
-                chatViewModel.submitMsg(Key, ChatData(meNum,binding.editMessage.text.toString(),System.currentTimeMillis()))
+                val timeStamp = System.currentTimeMillis()
+                chatViewModel.submitMsg(Key, ChatData(meNum,binding.editMessage.text.toString(),timeStamp))
+                chatViewModel.updateChatRoomData(Key,binding.editMessage.text.toString(),timeStamp,meNum,otherNum)
                 binding.editMessage.text.clear()
+
             }
         }
 

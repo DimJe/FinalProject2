@@ -4,41 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostDetail"
     android:orientation="vertical"
-    android:padding="10sp"
-    android:weightSum="4">
+    android:padding="15sp"
+    android:weightSum="4"
+    tools:context=".PostDetail">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
+        android:gravity="center|start"
+        android:text="제목"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
-        />
+        android:layout_weight="0.25"
+        android:gravity="center|start"
+        android:text="농구 할 사람 구합니다."
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
+        android:gravity="center|start"
+        android:text="시간"
+        android:textSize="15sp" />
+
     <TextView
         android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.25"
-        />
+        android:gravity="center|start"
+        android:text="12/28"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
+        android:gravity="center|start"
+        android:text="장소"
+        android:textSize="15sp" />
+
     <TextView
         android:id="@+id/where"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.25"
-        />
+        android:gravity="center|start"
+        android:text="강릉원주대 체육관"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
+        android:gravity="center|start"
+        android:text="상세 내용"
+        android:textSize="15sp" />
+
     <TextView
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.9"
-        />
+        android:textColor="@color/black"
+        android:text="샘플데이터 입니다.\n실력 상관없이 재밌게 농구 한게임 하실분 구합니다.!"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1.95" />
+
     <Button
         android:id="@+id/chatStart"
-        android:text="대화 시작하기"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.3"
-        />
+        android:background="@drawable/round"
+        android:backgroundTint="@color/purple_200"
+        android:text="대화 시작하기" />
 
 </LinearLayout>

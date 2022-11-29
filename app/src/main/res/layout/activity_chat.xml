@@ -10,8 +10,9 @@
         android:id="@+id/chatName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#88B8FF"
         android:padding="10sp"
-        android:layout_marginStart="20dp"
+        android:paddingStart="20sp"
         android:text="상대방 이름"
         android:textColor="@color/black"
         android:textSize="30sp"
@@ -24,12 +25,12 @@
         android:id="@+id/chatRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#88B8FF"
         app:layout_constraintBottom_toTopOf="@id/linear"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:listitem="@layout/recycler_chat_item"
-        android:background="#A9E6EA"
-        app:layout_constraintTop_toBottomOf="@id/chatName" />
+        app:layout_constraintTop_toBottomOf="@id/chatName"
+        tools:listitem="@layout/recycler_chat_item" />
 
     <LinearLayout
         android:id="@+id/linear"

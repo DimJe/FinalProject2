@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.techtown.finalproject2.Chat.ChatRoomData
 import org.techtown.finalproject2.databinding.RecyclerChatroomItemBinding
+import java.text.SimpleDateFormat
 
 class ChatRoomAdapter(var data : ArrayList<ChatRoomData>) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
     interface OnItemClickListener{
@@ -32,9 +33,13 @@ class ChatRoomAdapter(var data : ArrayList<ChatRoomData>) : RecyclerView.Adapter
 
         @SuppressLint("SetTextI18n")
         fun bind(item : ChatRoomData){
+
+            @SuppressLint("SimpleDateFormat")
+            val sdf = SimpleDateFormat("MM-dd hh:mm")
+
             binding.chatRoomName.text = item.chatName
             binding.lastMessage.text = item.lastMessage
-            binding.timeStamp.text = item.timeStamp
+            binding.timeStamp.text = sdf.format(item.timeStamp)
             val pos = adapterPosition
             if(pos!= RecyclerView.NO_POSITION)
             {

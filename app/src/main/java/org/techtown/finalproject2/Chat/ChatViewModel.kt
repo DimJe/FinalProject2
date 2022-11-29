@@ -41,4 +41,10 @@ class ChatViewModel : ViewModel() {
             override fun onCancelled(error: DatabaseError) {}
         })
     }
+    fun updateChatRoomData(key:String, msg:String, timeStamp : Long, me:String, other:String){
+        db.child("UserRoom").child(me).child(key).child("lastMessage").setValue(msg)
+        db.child("UserRoom").child(me).child(key).child("timeStamp").setValue(timeStamp)
+        db.child("UserRoom").child(other).child(key).child("lastMessage").setValue(msg)
+        db.child("UserRoom").child(other).child(key).child("timeStamp").setValue(timeStamp)
+    }
 }
