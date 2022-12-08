@@ -3,8 +3,6 @@ package org.techtown.finalproject2.fragment.map
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,10 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naver.maps.geometry.LatLng
-import com.naver.maps.map.LocationSource
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -23,13 +19,9 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.util.FusedLocationSource
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.techtown.finalproject2.API.PostData
-import org.techtown.finalproject2.API.Stadm
-import org.techtown.finalproject2.PostDetail
+import org.techtown.finalproject2.Activity.PostDetail
 import org.techtown.finalproject2.R
 import org.techtown.finalproject2.adapter.ListAdapter
 import org.techtown.finalproject2.databinding.FragmentMapBinding
@@ -139,7 +131,7 @@ class MapFragment : Fragment(),OnMapReadyCallback {
         adapter.setOnItemClickListener(object : ListAdapter.OnItemClickListener{
             override fun onItemClick(b: RecyclerViewItemBinding, post: PostData, positon: Int) {
                 Log.d("태그", "onItemClick: call")
-                Intent(context,PostDetail::class.java).apply {
+                Intent(context, PostDetail::class.java).apply {
                     putExtra("post",post)
                 }.run { startActivity(this) }
             }

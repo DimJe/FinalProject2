@@ -14,6 +14,8 @@ import kotlin.collections.ArrayList
 class Api {
     var user : User? = null
     var postDataList = MutableLiveData<ArrayList<PostData>>()
+    var instrUserList = MutableLiveData<ArrayList<User>>()
+    val clubDataList = ArrayList<ClubData>()
     private val BASE_URL = "http://3.38.210.48"
     val stadmList = ArrayList<Stadm>()
     private val retrofit by lazy {
@@ -68,6 +70,7 @@ class Api {
         val body = result.execute().body()
         if(body != null){
             flag = true
+            Log.d("태그", "getUser: $body")
             user = body
         }
         return flag
@@ -105,12 +108,29 @@ class Api {
         instr : Boolean
     ) : Boolean{
         val result = instance.registerUser(name, gndr, age, nickName, rgn, telNO, email, height, weight, instr)
-        var flag = false
-        result.enqueue(object : Callback<Any>{
-            override fun onResponse(call: Call<Any>, response: Response<Any>){
-                Log.d("태그", "onResponse: register ${response.code()}")
-                flag = response.code()==200
+        val flag = result.execute().code() == 200
 
+        return flag
+    }
+    fun modifyUser(
+        name : String,
+        gndr : String,
+        age : Int,
+        nickName : String,
+        rgn : String,
+        telNO : String,
+        email : String,
+        height : Float,
+        weight : Float,
+        instr : Boolean,
+        manner : Float,
+        skill : Float,
+        club : Int
+    ){
+        val result = instance.modifyUser(name,gndr,age, nickName, rgn, telNO, email, height, weight, instr, skill, manner, club)
+        result.enqueue(object : Callback<Any>{
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                Log.d("태그", "onResponse: register ${response.code()}")
             }
 
             override fun onFailure(call: Call<Any>, t: Throwable) {
@@ -118,7 +138,6 @@ class Api {
             }
 
         })
-        return flag
     }
     fun getStadium(){
         val result = instance.getStadium()
@@ -141,6 +160,28 @@ class Api {
 
         })
     }
+    fun registerClub(
+        name : String,
+        sport : String,
+        region : String,
+        num : Int,
+        email : String
+    ){
+        val result = instance.registerClub(name, sport, region, num, email)
+        result.enqueue(object : Callback<Any>{
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                if(response.isSuccessful) {
+                    Log.d("태그", "registerClub: ${response.code()}")
+                    getClub()
+                }
+            }
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.d("태그", "onFailure: getStadium ${t.localizedMessage}")
+            }
+
+        })
+    }
     fun registerPost(name : String,
                      content : String,
                      match : String,
@@ -158,6 +199,80 @@ class Api {
             }
 
             override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.d("태그", "onFailure: getStadium ${t.localizedMessage}")
+            }
+
+        })
+    }
+    fun setSkillScore(num : Int, score : Float){
+        val result = instance.setSkillScore(num,score)
+        result.enqueue(object : Callback<Any>{
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                if(response.isSuccessful){
+                    Log.d("태그", "onResponse: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.d("태그", "onFailure: getStadium ${t.localizedMessage}")
+            }
+
+        })
+    }
+    fun setMannerScore(num : Int, score : Float){
+        val result = instance.setMannerScore(num,score)
+        result.enqueue(object : Callback<Any>{
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                if(response.isSuccessful){
+                    Log.d("태그", "onResponse: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.d("태그", "onFailure: getStadium ${t.localizedMessage}")
+            }
+
+        })
+    }
+    fun getInstr(){
+        val result = instance.getInstr()
+        val temp = ArrayList<User>()
+        result.enqueue(object : Callback<ArrayList<User>>{
+            override fun onResponse(
+                call: Call<ArrayList<User>>,
+                response: Response<ArrayList<User>>
+            ) {
+                if(response.isSuccessful){
+                    response.body()?.forEach {
+                        temp.add(it)
+                    }
+                }
+                instrUserList.postValue(temp)
+            }
+
+            override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
+                Log.d("태그", "onFailure: getStadium ${t.localizedMessage}")
+            }
+
+        })
+    }
+    fun getClub(){
+        val result = instance.getClub()
+        result.enqueue(object : Callback<ArrayList<ClubData>>{
+            override fun onResponse(
+                call: Call<ArrayList<ClubData>>,
+                response: Response<ArrayList<ClubData>>
+            ) {
+                if(response.isSuccessful){
+                    clubDataList.clear()
+                    response.body()?.forEach {
+                        Log.d("태그", "getClub: $it")
+                        clubDataList.add(it)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<ClubData>>, t: Throwable) {
                 Log.d("태그", "onFailure: getStadium ${t.localizedMessage}")
             }
 

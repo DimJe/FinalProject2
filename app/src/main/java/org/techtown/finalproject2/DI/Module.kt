@@ -15,5 +15,5 @@ var module = module{
     viewModel { DashboardViewModel(get()) }
     viewModel { NotificationsViewModel(get()) }
     viewModel { MapViewModel(get())}
-    viewModel { ChatViewModel()}
+    viewModel { ChatViewModel(get())}
 }

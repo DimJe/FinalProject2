@@ -1,38 +1,45 @@
 package org.techtown.finalproject2.fragment.notifications
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.techtown.finalproject2.Activity.ClubInfo
+import org.techtown.finalproject2.Activity.InstrUser
+import org.techtown.finalproject2.Activity.UserInfo
 import org.techtown.finalproject2.databinding.FragmentNotificationsBinding
 
 class NotificationsFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
+    private val notificationsViewModel : NotificationsViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel : NotificationsViewModel by viewModel()
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        initView()
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        return binding.root
+    }
+    private fun initView(){
+        binding.userName.text = notificationsViewModel.api.user?.user_NCKNM
+        binding.modifyUser.setOnClickListener {
+            Intent(requireContext(), UserInfo::class.java).apply { startActivity(this) }
         }
-        return root
+        binding.club.setOnClickListener {
+            Intent(requireContext(),ClubInfo::class.java).apply { startActivity(this) }
+        }
+        binding.instructor.setOnClickListener {
+            Intent(requireContext(),InstrUser::class.java).apply { startActivity(this) }
+        }
     }
 
     override fun onDestroyView() {

@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.techtown.finalproject2.API.PostData
-import org.techtown.finalproject2.AddPost
-import org.techtown.finalproject2.PostDetail
+import org.techtown.finalproject2.Activity.AddPost
+import org.techtown.finalproject2.Activity.PostDetail
 import org.techtown.finalproject2.R
 import org.techtown.finalproject2.adapter.ListAdapter
 import org.techtown.finalproject2.databinding.FragmentHomeBinding
@@ -25,11 +25,8 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var adapter : ListAdapter
-    private val searchFlag = false
     private val homeViewModel : HomeViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +39,7 @@ class HomeFragment : Fragment() {
 
         homeViewModel.api.getStadium()
         homeViewModel.api.getPost()
+        homeViewModel.api.getClub()
         val recycler: RecyclerView = binding.recycler
         homeViewModel.api.postDataList.observe(viewLifecycleOwner) {
             Log.d("태그", "post: observed")
@@ -50,7 +48,7 @@ class HomeFragment : Fragment() {
             adapter.setOnItemClickListener(object : ListAdapter.OnItemClickListener{
                 override fun onItemClick(b: RecyclerViewItemBinding, post: PostData, positon: Int) {
                     Log.d("태그", "onItemClick: call")
-                    Intent(context,PostDetail::class.java).apply {
+                    Intent(context, PostDetail::class.java).apply {
                         putExtra("post",post)
                     }.run { startActivity(this) }
                 }
@@ -92,7 +90,7 @@ class HomeFragment : Fragment() {
             when(it.itemId){
                 R.id.add -> {
                     Log.d("태그", "add 클릭")
-                    Intent(context,AddPost::class.java).run { startActivity(this) }
+                    Intent(context, AddPost::class.java).run { startActivity(this) }
 
                 }
                 R.id.filter -> {

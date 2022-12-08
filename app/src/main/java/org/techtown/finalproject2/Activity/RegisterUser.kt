@@ -1,5 +1,6 @@
-package org.techtown.finalproject2
+package org.techtown.finalproject2.Activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.techtown.finalproject2.API.Api
+import org.techtown.finalproject2.R
 import org.techtown.finalproject2.databinding.ActivityRegisterUserBinding
 
 
@@ -74,8 +76,15 @@ class RegisterUser : AppCompatActivity() {
                         )
                     }
                     val temp = deferred.await()
-                    if(temp) Toast.makeText(this@RegisterUser, "등록에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                    else Toast.makeText(this@RegisterUser, "닉네임이 중복입니다.", Toast.LENGTH_SHORT).show()
+                    if(temp) {
+                        api.getUser(email)
+                        runOnUiThread { Toast.makeText(this@RegisterUser, "등록에 성공했습니다.", Toast.LENGTH_SHORT).show() }
+                        Intent(this@RegisterUser,MainSystem::class.java).apply { startActivity(this) }
+                        finish()
+                    }
+                    else {
+                        runOnUiThread{ Toast.makeText(this@RegisterUser, "닉네임이 중복입니다.", Toast.LENGTH_SHORT).show()}
+                    }
                 }
             }
         }

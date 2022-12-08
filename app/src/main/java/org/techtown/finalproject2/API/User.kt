@@ -11,8 +11,9 @@ data class User(val user_NO_PK : Int, // 유저번호
                 val user_HGT : Float, // 키
                 val user_WGT : Float, // 몸무게
                 val user_RGN : String, // 지역
-                val club_NO_FK : Int, // 가입 클럽 번호
+                val club_NO : Int, // 가입 클럽 번호
                 val user_MNR_SCR : Float, // 매너 점수
                 val user_SKL_SCR : Float, // 실력 점수
-                val user_EML_ADDR : String // 이메일
+                val user_EML_ADDR : String, // 이메일
+                val instr_USER_YN : Boolean
 ) : Serializable

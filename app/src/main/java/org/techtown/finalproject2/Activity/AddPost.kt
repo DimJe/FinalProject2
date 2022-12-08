@@ -1,4 +1,4 @@
-package org.techtown.finalproject2
+package org.techtown.finalproject2.Activity
 
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import org.koin.android.ext.android.inject
 import org.techtown.finalproject2.API.Api
+import org.techtown.finalproject2.R
 import org.techtown.finalproject2.databinding.ActivityAddPostBinding
 import java.util.*
 import kotlin.collections.ArrayList

@@ -1,4 +1,4 @@
-package org.techtown.finalproject2
+package org.techtown.finalproject2.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +14,9 @@ import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.techtown.finalproject2.API.Api
-import org.techtown.finalproject2.API.User
+import org.techtown.finalproject2.Notification.NotificationBody
+import org.techtown.finalproject2.Notification.NotificationRetrofit
+import org.techtown.finalproject2.R
 import org.techtown.finalproject2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         KakaoSdk.init(this, this.getString(R.string.kakaoAppKey))
 
         initView()
-
     }
 
     private fun initView(){
@@ -54,11 +55,11 @@ class MainActivity : AppCompatActivity() {
                             val temp = deferred.await()
                             if(temp){
                                 Log.d("태그", "checkUser: true")
-                                Intent(this@MainActivity,MainSystem::class.java).run {
+                                Intent(this@MainActivity, MainSystem::class.java).run {
                                     startActivity(this)
                                 }
                             }else{
-                                Intent(this@MainActivity,RegisterUser::class.java).run{
+                                Intent(this@MainActivity, RegisterUser::class.java).run{
                                     startActivity(this)
                                 }
                             }
@@ -93,11 +94,11 @@ class MainActivity : AppCompatActivity() {
                                 if(api.getUser(user?.kakaoAccount?.email!!)){
                                     Log.d("태그", "checkUser: true")
 
-                                    Intent(this@MainActivity,MainSystem::class.java).run {
+                                    Intent(this@MainActivity, MainSystem::class.java).run {
                                         startActivity(this)
                                     }
                                 }else{
-                                    Intent(this@MainActivity,RegisterUser::class.java).run{
+                                    Intent(this@MainActivity, RegisterUser::class.java).run{
                                         startActivity(this)
                                     }
                                 }

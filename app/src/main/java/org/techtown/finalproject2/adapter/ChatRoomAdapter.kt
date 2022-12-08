@@ -3,6 +3,7 @@ package org.techtown.finalproject2.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import org.techtown.finalproject2.Chat.ChatRoomData
 import org.techtown.finalproject2.databinding.RecyclerChatroomItemBinding
@@ -11,11 +12,19 @@ import java.text.SimpleDateFormat
 class ChatRoomAdapter(var data : ArrayList<ChatRoomData>) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
     interface OnItemClickListener{
         fun onItemClick(b: RecyclerChatroomItemBinding, room: ChatRoomData, positon : Int)
+
+    }
+    interface OnItemLongClick{
+        fun onLongClick(b: RecyclerChatroomItemBinding, room: ChatRoomData, positon : Int)
     }
 
     private var listener : OnItemClickListener? = null
+    private var longListener : OnItemLongClick? = null
     fun setOnItemClickListener(listener : OnItemClickListener) {
         this.listener = listener
+    }
+    fun setOnItemLongClickListener(longClick : OnItemLongClick) {
+        this.longListener = longClick
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,6 +54,10 @@ class ChatRoomAdapter(var data : ArrayList<ChatRoomData>) : RecyclerView.Adapter
             {
                 itemView.setOnClickListener {
                     listener?.onItemClick(binding,item,pos)
+                }
+                itemView.setOnLongClickListener {
+                    longListener?.onLongClick(binding,item,pos)
+                    true
                 }
             }
 

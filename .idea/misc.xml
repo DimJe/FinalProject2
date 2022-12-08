@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/drawable-v24/edit_box2.xml" value="0.1795" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/drawable/addpost.xml" value="0.181" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/drawable/arrow2.xml" value="0.1795" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/drawable/calendar.xml" value="0.181" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/drawable/chat_bubble.xml" value="0.181" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.181" />
@@ -14,11 +16,18 @@
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/drawable/send_message.xml" value="0.181" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_add_post.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_chat.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_club_info.xml" value="0.264" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_instr_user.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_main_system.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_make_user.xml" value="0.2390625" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_modify_user.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_post_detail.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_register_user.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/activity_user_info.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/dialog_club.xml" value="0.264" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/dialog_estimate.xml" value="0.20820863616930313" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/estimate_dialog.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/fragment_dashboard.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/fragment_home.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/fragment_make_user1.xml" value="0.25364583333333335" />
@@ -29,8 +38,13 @@
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/post_toolbar.xml" value="0.20726495726495728" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/recycler_chat_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/recycler_chatroom_item.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/recycler_club_item.xml" value="0.264" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/recycler_instr_item.xml" value="0.264" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/layout/recycler_view_item.xml" value="0.264" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/menu/menu_chat.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/menu/menu_club.xml" value="0.264" />
+        <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/menu/menu_modify.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mark7/AndroidStudioProjects/FinalProject2/app/src/main/res/menu/post_toolbar.xml" value="0.2" />
       </map>
     </option>
