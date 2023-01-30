@@ -15,10 +15,12 @@
 - Viewbinding
 ## 동작 화면
 - 기본
-    <p align="center">
-    <img src="https://user-images.githubusercontent.com/41900899/215446221-5bd5f1fa-8c68-4044-913c-bcdfe93d1fdc.gif"></p>
+    <p>
+    <img src="https://user-images.githubusercontent.com/41900899/215446221-5bd5f1fa-8c68-4044-913c-bcdfe93d1fdc.gif" width=200 height=400>
+    </p>
+    
 - 채팅
     <figure align="center">
-  <img src="https://user-images.githubusercontent.com/41900899/210064119-a2414f37-b091-40bc-8620-cb5a6546e32b.gif" width=200 height=400>
-  <img src="https://user-images.githubusercontent.com/41900899/210064173-f7c57ca8-e7a0-4acf-a415-9be84651bdf0.gif" width=200 height=400>
-  </figure>
+    <img src="https://user-images.githubusercontent.com/41900899/210064119-a2414f37-b091-40bc-8620-cb5a6546e32b.gif" width=200 height=400>
+    <img src="https://user-images.githubusercontent.com/41900899/210064173-f7c57ca8-e7a0-4acf-a415-9be84651bdf0.gif" width=200 height=400>
+    </figure></p>
